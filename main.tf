@@ -18,15 +18,14 @@ resource "aws_instance" "example" {
   ami                    = "ami-0c614dee691cbbf37"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
-  
 
 
-  /*user_data = <<-EOF
+
+  user_data = <<-EOF
                 #!/bin/bash
                 echo "Hello, world" > index.html
-                nohup bussybox httpd -f -p ${var.server_port} &
+                python3 -m httpd -f -p ${var.server_port} &
                 EOF
-    */
 
   user_data_replace_on_change = true
 
@@ -45,3 +44,4 @@ resource "aws_security_group" "instance" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
