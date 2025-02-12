@@ -156,3 +156,19 @@ resource "aws_lb" "lb_excercises" {
   subnets            = data.aws_subnet_ids.default_subnet.ids
   security_groups    = [aws_security_group.alb.id]
 }
+
+resource "aws_route53_zone" "primary" {
+  name = "tfexcercises.com"
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.primary.zone_id
+  name    = "tfexcercisesrecord.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.lb_excercises.dns_name
+    zone_id                = aws_lb.lb_excercises.zone_id
+    evaluate_target_health = true
+  }
+}
