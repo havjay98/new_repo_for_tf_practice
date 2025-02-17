@@ -25,11 +25,35 @@ variable "db_name" {
 variable "db_username" {
   description = "username for rds db"
   type        = string
-  default     = "hames"
+  sensitive   = true
 }
 
 variable "db_password" {
   description = "password for rds db"
   type        = string
   sensitive   = true
+}
+
+variable "region" {
+  description = "aws global region"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "server_port" {
+  description = "The port the server will use for HTTP requests"
+  type        = number
+  default     = 8080
+}
+
+variable "bucket_prefix" {
+  description = "Prefix for the S3 bucket name"
+  type        = string
+  default     = "my-app-bucket"
+}
+
+variable "domain" {
+  description = "name of domain"
+  type        = string
+  default     = "tfexcercisesrecord.com"
 }
